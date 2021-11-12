@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnNum0, btnNum1, btnNum2, btnNum3, btnNum4, btnNum5, btnNum6, btnNum7, btnNum8, btnNum9,
             btnAC, btnPlusMinus, btnPercent, btnDivide, btnTimes, btnPlus, btnMinus, btnComma;
-    TextView textViewInputResult;
+    TextView textViewInputResult,textViewOutputResult;
     String process;
 
     @Override
@@ -40,14 +40,65 @@ public class MainActivity extends AppCompatActivity {
         btnComma=findViewById(R.id.btnComma);
 
         textViewInputResult=findViewById(R.id.textViewInputResult);
+        textViewOutputResult=findViewById(R.id.textViewOutputResult);
 
 
         btnAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 textViewInputResult.setText("");
+                textViewOutputResult.setText("");
             }
         });
+        /*TODO
+        btnPlusMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = Integer.parseInt(process);
+                process = Integer.toString(temp);
+            }
+        });
+*/
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process=textViewInputResult.getText().toString();
+                textViewInputResult.setText(process+"/");
+            }
+        });
+
+        btnTimes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process=textViewInputResult.getText().toString();
+                textViewInputResult.setText(process+"x");
+            }
+        });
+
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process=textViewInputResult.getText().toString();
+                textViewInputResult.setText(process+"+");
+            }
+        });
+
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process=textViewInputResult.getText().toString();
+                textViewInputResult.setText(process+"-");
+            }
+        });
+
+        btnComma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process=textViewInputResult.getText().toString();
+                textViewInputResult.setText(process+".");
+            }
+        });
+
 
         btnNum0.setOnClickListener(new View.OnClickListener() {
             @Override
