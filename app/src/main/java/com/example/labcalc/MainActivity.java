@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnNum0, btnNum1, btnNum2, btnNum3, btnNum4, btnNum5, btnNum6, btnNum7, btnNum8, btnNum9,
-            btnAC, btnPlusMinus, btnPercent, btnDivide, btnTimes, btnPlus, btnMinus, btnComma;
+            btnAC, btnPlusMinus, btnPercent, btnDivide, btnTimes, btnPlus, btnMinus, btnComma, btnEquals;
     TextView textViewInputResult,textViewOutputResult;
     String process;
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnNum8=findViewById(R.id.btnNum8);
         btnNum9=findViewById(R.id.btnNum9);
 
+        btnEquals=findViewById(R.id.btnEquals);
         btnAC=findViewById(R.id.btnAC);
         btnPlusMinus=findViewById(R.id.btnPlusMinus);
         btnPercent=findViewById(R.id.btnPercent);
@@ -42,6 +46,22 @@ public class MainActivity extends AppCompatActivity {
         textViewInputResult=findViewById(R.id.textViewInputResult);
         textViewOutputResult=findViewById(R.id.textViewOutputResult);
 
+
+        btnEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = textViewInputResult.getText().toString();
+
+                Context rinho = Context.enter();
+                rinho.setOptimizationLevel(-1);
+
+                Scriptable scriptable = rinho.initStandardObjects();
+                String finalResult = rinho.evaluateString(scriptable, process, "JavaScript", 1, null).toString();
+
+                textViewInputResult.setText("");
+                textViewOutputResult.setText(finalResult);
+            }
+        });
 
         btnAC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 process=textViewInputResult.getText().toString();
-                textViewInputResult.setText(process+"x");
+                textViewInputResult.setText(process+"*");
             }
         });
 
